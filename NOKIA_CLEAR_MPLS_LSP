@@ -1,0 +1,11 @@
+import pandas as pd
+
+
+arquivo = pd.read_excel("/home/stival/SCRIPTS/NOKIA/nokia_base_mpls_lsp.xls")
+
+for index, row in arquivo.iterrows():
+    hostname = row["Hostname"]
+    info_lsp = row["Tunnel"]
+    path = row["Path"]
+    command = f'Hostname: {hostname} \n/configure router mpls path "{path}" shutdown\n/configure router mpls lsp "{info_lsp}" egress-statistics shutdown\n/configure router mpls lsp "{info_lsp}" shutdown\n/configure router mpls no path "{path}"\n/configure router mpls no lsp "{info_lsp}"'
+    print(command)
